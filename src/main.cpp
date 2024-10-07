@@ -1,7 +1,6 @@
 #include <arpa/inet.h>
 #ifdef MACOSX
 #include <libkern/OSByteOrder.h>
-#include <machine/endian.h>
 #endif
 #include <netinet/in.h>
 #include <signal.h>
