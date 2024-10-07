@@ -44,6 +44,8 @@ const double admittance_d_gain_pos = 15.0;
 const double admittance_p_gain_ori = 0.3;
 const double admittance_d_gain_ori = 0.1;
 
+const bool constrain_to_plane = true;
+
 // network related parameters
 const int port = 8080;
 const string ip_address = "127.0.0.1";
@@ -157,8 +159,10 @@ int main() {
 			haptic_controller->setDeviceControlGains(
 				admittance_p_gain_pos, admittance_d_gain_pos,
 				admittance_p_gain_ori, admittance_d_gain_ori);
-			haptic_controller->enablePlaneGuidance(Vector3d::Zero(),
-												   Vector3d::UnitZ());
+			if (constrain_to_plane) {
+				haptic_controller->enablePlaneGuidance(Vector3d::Zero(),
+													   Vector3d::UnitZ());
+			}
 			// haptic_controller->disableHapticWorkspaceVirtualLimits();
 		}
 
