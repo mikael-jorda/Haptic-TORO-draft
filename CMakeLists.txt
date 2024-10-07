@@ -14,6 +14,12 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+if (CMAKE_SYSTEM_NAME MATCHES Darwin)
+  add_definitions(-D_MACOSX -DMACOSX)
+elseif (CMAKE_SYSTEM_NAME MATCHES Linux)
+  add_definitions(-D_LINUX -DLINUX)
+endif ()
+
 # include Eigen
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})

@@ -1,6 +1,8 @@
 #include <arpa/inet.h>
+#ifdef MACOSX
 #include <libkern/OSByteOrder.h>
 #include <machine/endian.h>
+#endif
 #include <netinet/in.h>
 #include <signal.h>
 #include <sys/socket.h>
@@ -51,9 +53,12 @@ void encodeDouble(double value, unsigned char* buffer) {
 	// Copy double to buffer
 	std::memcpy(buffer, &value, sizeof(value));
 
-	// Check system endianness
-	// if (__BYTE_ORDER == __LITTLE_ENDIAN) {
+// Check system endianness
+#ifdef MACOSX
 	if (OSHostByteOrder() == OSLittleEndian) {
+#else
+	if (__BYTE_ORDER == __LITTLE_ENDIAN) {
+#endif
 		// If little-endian, reverse the byte order
 		for (int i = 0; i < 4; ++i) {
 			std::swap(buffer[i], buffer[7 - i]);
